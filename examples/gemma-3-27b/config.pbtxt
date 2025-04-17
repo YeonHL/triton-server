@@ -141,44 +141,44 @@ ensemble_scheduling {
         value: "return_num_output_tokens"
       }
       output_map {
-        key: "text_output"
-        value: "chat"
+        key: "text_preprocessed"
+        value: "text_preprocessed"
       }
       output_map {
-        key: "image"
-        value: "original_image"
+        key: "image_preprocessed"
+        value: "image_preprocessed"
       }
       output_map {
-        key: "stream"
-        value: "original_stream"
+        key: "stream_preprocessed"
+        value: "stream_preprocessed"
       }
       output_map {
-        key: "sampling_parameters"
-        value: "original_sampling_parameters"
+        key: "sampling_parameters_preprocessed"
+        value: "sampling_parameters_preprocessed"
       }
       output_map {
-        key: "exclude_input_in_output"
-        value: "original_exclude_input_in_output"
+        key: "exclude_input_in_output_preprocessed"
+        value: "exclude_input_in_output_preprocessed"
       }
       output_map {
-        key: "return_finish_reason"
-        value: "original_return_finish_reason"
+        key: "return_finish_reason_preprocessed"
+        value: "return_finish_reason_preprocessed"
       }
       output_map {
-        key: "return_cumulative_logprob"
-        value: "original_return_cumulative_logprob"
+        key: "return_cumulative_logprob_preprocessed"
+        value: "return_cumulative_logprob_preprocessed"
       }
       output_map {
-        key: "return_logprobs"
-        value: "original_return_logprobs"
+        key: "return_logprobs_preprocessed"
+        value: "return_logprobs_preprocessed"
       }
       output_map {
-        key: "return_num_input_tokens"
-        value: "original_return_num_input_tokens"
+        key: "return_num_input_tokens_preprocessed"
+        value: "return_num_input_tokens_preprocessed"
       }
       output_map {
-        key: "return_num_output_tokens"
-        value: "original_return_num_output_tokens"
+        key: "return_num_output_tokens_preprocessed"
+        value: "return_num_output_tokens_preprocessed"
       }
     },
     {
@@ -186,43 +186,43 @@ ensemble_scheduling {
       model_version: -1
       input_map {
         key: "text_input"
-        value: "chat"
+        value: "text_preprocessed"
       }
       input_map {
         key: "image"
-        value: "original_image"
+        value: "image_preprocessed"
       }
       input_map {
         key: "stream"
-        value: "original_stream"
+        value: "stream_preprocessed"
       }
       input_map {
         key: "sampling_parameters"
-        value: "original_sampling_parameters"
+        value: "sampling_parameters_preprocessed"
       }
       input_map {
         key: "exclude_input_in_output"
-        value: "original_exclude_input_in_output"
+        value: "exclude_input_in_output_preprocessed"
       }
       input_map {
         key: "return_finish_reason"
-        value: "original_return_finish_reason"
+        value: "return_finish_reason_preprocessed"
       }
       input_map {
         key: "return_cumulative_logprob"
-        value: "original_return_cumulative_logprob"
+        value: "return_cumulative_logprob_preprocessed"
       }
       input_map {
         key: "return_logprobs"
-        value: "original_return_logprobs"
+        value: "return_logprobs_preprocessed"
       }
       input_map {
         key: "return_num_input_tokens"
-        value: "original_return_num_input_tokens"
+        value: "return_num_input_tokens_preprocessed"
       }
       input_map {
         key: "return_num_output_tokens"
-        value: "original_return_num_output_tokens"
+        value: "return_num_output_tokens_preprocessed"
       }
       output_map {
         key: "text_output"

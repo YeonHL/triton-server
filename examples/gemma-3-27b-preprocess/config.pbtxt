@@ -1,5 +1,5 @@
 backend: "python"
-max_batch_size: 32
+max_batch_size: 8
 
 input [
   {
@@ -74,61 +74,61 @@ input [
 
 output [
   {
-    name: "text_output"
+    name: "text_preprocessed"
     data_type: TYPE_STRING
     dims: [ 1 ]
     reshape: { shape: [ ] }
   },
   {
-    name: "image"
+    name: "image_preprocessed"
     data_type: TYPE_STRING
     dims: [ 1 ]
     reshape: { shape: [ ] }
   },
   {
-    name: "stream"
+    name: "stream_preprocessed"
     data_type: TYPE_BOOL
     dims: [ 1 ]
     reshape: { shape: [ ] }
   },
   {
-    name: "sampling_parameters"
+    name: "sampling_parameters_preprocessed"
     data_type: TYPE_STRING
     dims: [ 1 ]
     reshape: { shape: [ ] }
   },
   {
-    name: "exclude_input_in_output"
+    name: "exclude_input_in_output_preprocessed"
     data_type: TYPE_BOOL
     dims: [ 1 ]
     reshape: { shape: [ ] }
   },
   {
-    name: "return_finish_reason"
+    name: "return_finish_reason_preprocessed"
     data_type: TYPE_BOOL
     dims: [ 1 ]
     reshape: { shape: [ ] }
   },
   {
-    name: "return_cumulative_logprob"
+    name: "return_cumulative_logprob_preprocessed"
     data_type: TYPE_BOOL
     dims: [ 1 ]
     reshape: { shape: [ ] }
   },
   {
-    name: "return_logprobs"
+    name: "return_logprobs_preprocessed"
     data_type: TYPE_BOOL
     dims: [ 1 ]
     reshape: { shape: [ ] }
   },
   {
-    name: "return_num_input_tokens"
+    name: "return_num_input_tokens_preprocessed"
     data_type: TYPE_BOOL
     dims: [ 1 ]
     reshape: { shape: [ ] }
   },
   {
-    name: "return_num_output_tokens"
+    name: "return_num_output_tokens_preprocessed"
     data_type: TYPE_BOOL
     dims: [ 1 ]
     reshape: { shape: [ ] }
@@ -150,7 +150,7 @@ parameters [
 ]
 
 dynamic_batching {
-  preferred_batch_size: [ 1, 4, 8, 16, 32]
+  preferred_batch_size: [ 1, 2, 4, 8]
   max_queue_delay_microseconds: 100
 }
 

@@ -113,39 +113,39 @@ class TritonPythonModel:
                     result = self.tokenizer.apply_chat_template(chat, tokenize=False)
 
                     # Create output tensor for text_output
-                    text_output_tensor = pb_utils.Tensor(
-                        "text_output", np.array(result, dtype=np.object_)
+                    text_preprocessed_tensor = pb_utils.Tensor(
+                        "text_preprocessed", np.array(result, dtype=np.object_)
                     )
                 else:
                     # If no text_input is provided, return empty result
-                    text_output_tensor = pb_utils.Tensor(
-                        "text_output", np.array([""], dtype=np.object_)
+                    text_preprocessed_tensor = pb_utils.Tensor(
+                        "text_preprocessed", np.array([""], dtype=np.object_)
                     )
 
-                output_tensors = [text_output_tensor]
+                output_tensors = [text_preprocessed_tensor]
 
                 # Add other outputs (passing through input values)
                 if image_tensor is not None:
                     output_tensors.append(
-                        pb_utils.Tensor("image", image_tensor.as_numpy())
+                        pb_utils.Tensor("image_preprocessed", image_tensor.as_numpy())
                     )
 
                 if stream_tensor is not None:
                     output_tensors.append(
-                        pb_utils.Tensor("stream", stream_tensor.as_numpy())
+                        pb_utils.Tensor("stream_preprocessed", stream_tensor.as_numpy())
                     )
 
                 if sampling_parameters_tensor is not None:
                     output_tensors.append(
                         pb_utils.Tensor(
-                            "sampling_parameters", sampling_parameters_tensor.as_numpy()
+                            "sampling_parameters_preprocessed", sampling_parameters_tensor.as_numpy()
                         )
                     )
 
                 if exclude_input_in_output_tensor is not None:
                     output_tensors.append(
                         pb_utils.Tensor(
-                            "exclude_input_in_output",
+                            "exclude_input_in_output_preprocessed",
                             exclude_input_in_output_tensor.as_numpy(),
                         )
                     )
@@ -153,7 +153,7 @@ class TritonPythonModel:
                 if return_finish_reason_tensor is not None:
                     output_tensors.append(
                         pb_utils.Tensor(
-                            "return_finish_reason",
+                            "return_finish_reason_preprocessed",
                             return_finish_reason_tensor.as_numpy(),
                         )
                     )
@@ -161,7 +161,7 @@ class TritonPythonModel:
                 if return_cumulative_logprob_tensor is not None:
                     output_tensors.append(
                         pb_utils.Tensor(
-                            "return_cumulative_logprob",
+                            "return_cumulative_logprob_preprocessed",
                             return_cumulative_logprob_tensor.as_numpy(),
                         )
                     )
@@ -169,14 +169,14 @@ class TritonPythonModel:
                 if return_logprobs_tensor is not None:
                     output_tensors.append(
                         pb_utils.Tensor(
-                            "return_logprobs", return_logprobs_tensor.as_numpy()
+                            "return_logprobs_preprocessed", return_logprobs_tensor.as_numpy()
                         )
                     )
 
                 if return_num_input_tokens_tensor is not None:
                     output_tensors.append(
                         pb_utils.Tensor(
-                            "return_num_input_tokens",
+                            "return_num_input_tokens_preprocessed",
                             return_num_input_tokens_tensor.as_numpy(),
                         )
                     )
@@ -184,7 +184,7 @@ class TritonPythonModel:
                 if return_num_output_tokens_tensor is not None:
                     output_tensors.append(
                         pb_utils.Tensor(
-                            "return_num_output_tokens",
+                            "return_num_output_tokens_preprocessed",
                             return_num_output_tokens_tensor.as_numpy(),
                         )
                     )

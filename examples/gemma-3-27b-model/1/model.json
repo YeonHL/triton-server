@@ -5,6 +5,6 @@
   "pipeline_parallel_size": 1,
   "tensor_parallel_size": 1,
   "gpu_memory_utilization": 0.9,
-  "max_num_seqs": 1,
+  "max_num_seqs": 8,
   "disable_log_requests": "true"
 }

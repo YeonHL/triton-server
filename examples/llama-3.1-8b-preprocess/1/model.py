@@ -113,16 +113,16 @@ class TritonPythonModel:
                     result = self.tokenizer.apply_chat_template(chat, tokenize=False)
 
                     # Create output tensor for text_output
-                    text_output_tensor = pb_utils.Tensor(
+                    text_preprocessed_tensor = pb_utils.Tensor(
                         "text_preprocessed", np.array(result, dtype=np.object_)
                     )
                 else:
                     # If no text_input is provided, return empty result
-                    text_output_tensor = pb_utils.Tensor(
+                    text_preprocessed_tensor = pb_utils.Tensor(
                         "text_preprocessed", np.array([""], dtype=np.object_)
                     )
 
-                output_tensors = [text_output_tensor]
+                output_tensors = [text_preprocessed_tensor]
 
                 # Add other outputs (passing through input values)
                 if image_tensor is not None:

@@ -7,5 +7,5 @@
   "gpu_memory_utilization": 0.74,
   "max_num_seqs": 8,
   "quantization": "modelopt",
-  "disable_log_requests": "false"
+  "disable_log_requests": "true"
 }
