@@ -1,0 +1,157 @@
+backend: "python"
+max_batch_size: 32
+
+input [
+  {
+    name: "text_input"
+    data_type: TYPE_STRING
+    dims: [ 1 ]
+    reshape: { shape: [ ] }
+  },
+  {
+    name: "image"
+    data_type: TYPE_STRING
+    dims: [ 1 ]
+    reshape: { shape: [ ] }
+    optional: true
+  },
+  {
+    name: "stream"
+    data_type: TYPE_BOOL
+    dims: [ 1 ]
+    reshape: { shape: [ ] }
+  },
+  {
+    name: "sampling_parameters"
+    data_type: TYPE_STRING
+    dims: [ 1 ]
+    reshape: { shape: [ ] }
+    optional: true
+  },
+  {
+    name: "exclude_input_in_output"
+    data_type: TYPE_BOOL
+    dims: [ 1 ]
+    reshape: { shape: [ ] }
+    optional: true
+  },
+  {
+    name: "return_finish_reason"
+    data_type: TYPE_BOOL
+    dims: [ 1 ]
+    reshape: { shape: [ ] }
+    optional: true
+  },
+  {
+    name: "return_cumulative_logprob"
+    data_type: TYPE_BOOL
+    dims: [ 1 ]
+    reshape: { shape: [ ] }
+    optional: true
+  },
+  {
+    name: "return_logprobs"
+    data_type: TYPE_BOOL
+    dims: [ 1 ]
+    reshape: { shape: [ ] }
+    optional: true
+  },
+  {
+    name: "return_num_input_tokens"
+    data_type: TYPE_BOOL
+    dims: [ 1 ]
+    reshape: { shape: [ ] }
+    optional: true
+  },
+  {
+    name: "return_num_output_tokens"
+    data_type: TYPE_BOOL
+    dims: [ 1 ]
+    reshape: { shape: [ ] }
+    optional: true
+  }
+]
+
+output [
+  {
+    name: "text_preprocessed"
+    data_type: TYPE_STRING
+    dims: [ 1 ]
+    reshape: { shape: [ ] }
+  },
+  {
+    name: "image_preprocessed"
+    data_type: TYPE_STRING
+    dims: [ 1 ]
+    reshape: { shape: [ ] }
+  },
+  {
+    name: "stream_preprocessed"
+    data_type: TYPE_BOOL
+    dims: [ 1 ]
+    reshape: { shape: [ ] }
+  },
+  {
+    name: "sampling_parameters_preprocessed"
+    data_type: TYPE_STRING
+    dims: [ 1 ]
+    reshape: { shape: [ ] }
+  },
+  {
+    name: "exclude_input_in_output_preprocessed"
+    data_type: TYPE_BOOL
+    dims: [ 1 ]
+    reshape: { shape: [ ] }
+  },
+  {
+    name: "return_finish_reason_preprocessed"
+    data_type: TYPE_BOOL
+    dims: [ 1 ]
+    reshape: { shape: [ ] }
+  },
+  {
+    name: "return_cumulative_logprob_preprocessed"
+    data_type: TYPE_BOOL
+    dims: [ 1 ]
+    reshape: { shape: [ ] }
+  },
+  {
+    name: "return_logprobs_preprocessed"
+    data_type: TYPE_BOOL
+    dims: [ 1 ]
+    reshape: { shape: [ ] }
+  },
+  {
+    name: "return_num_input_tokens_preprocessed"
+    data_type: TYPE_BOOL
+    dims: [ 1 ]
+    reshape: { shape: [ ] }
+  },
+  {
+    name: "return_num_output_tokens_preprocessed"
+    data_type: TYPE_BOOL
+    dims: [ 1 ]
+    reshape: { shape: [ ] }
+  }
+]
+
+instance_group [
+  {
+    count: 1
+    kind: KIND_CPU
+  }
+]
+
+parameters [
+  {
+      key: "MODEL_REPO",
+      value: { string_value: "nvidia/llama-3.1-8B-Instruct-FP8" }
+  }
+]
+
+dynamic_batching {
+  preferred_batch_size: [ 1, 2, 4, 8]
+  max_queue_delay_microseconds: 100
+}
+
+version_policy: { latest: { num_versions: 1}}

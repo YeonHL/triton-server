@@ -1,0 +1,102 @@
+platform: "ensemble"
+max_batch_size: 8
+
+input [
+  {
+    name: "text_input"
+    data_type: TYPE_STRING
+    dims: [ 1 ]
+  },
+  {
+    name: "stream"
+    data_type: TYPE_BOOL
+    dims: [ 1 ]
+  },
+  {
+    name: "sampling_parameters"
+    data_type: TYPE_STRING
+    dims: [ 1 ]
+    optional: true
+  },
+  {
+    name: "exclude_input_in_output"
+    data_type: TYPE_BOOL
+    dims: [ 1 ]
+    optional: true
+  }
+]
+
+output [
+  {
+    name: "text_output"
+    data_type: TYPE_STRING
+    dims: [ 1 ]
+  }
+]
+
+ensemble_scheduling {
+  step [
+    {
+      model_name: "gemma-3-4b-preprocess"
+      model_version: -1
+      input_map {
+        key: "text_input"
+        value: "text_input"
+      }
+      input_map {
+        key: "stream"
+        value: "stream"
+      }
+      input_map {
+        key: "sampling_parameters"
+        value: "sampling_parameters"
+      }
+      input_map {
+        key: "exclude_input_in_output"
+        value: "exclude_input_in_output"
+      }
+      output_map {
+        key: "text_output"
+        value: "chat"
+      }
+      output_map {
+        key: "stream"
+        value: "original_stream"
+      }
+      output_map {
+        key: "sampling_parameters"
+        value: "original_sampling_parameters"
+      }
+      output_map {
+        key: "exclude_input_in_output"
+        value: "original_exclude_input_in_output"
+      }
+    },
+    {
+      model_name: "gemma-3-4b-model"
+      model_version: -1
+      input_map {
+        key: "text_input"
+        value: "chat"
+      }
+      input_map {
+        key: "stream"
+        value: "original_stream"
+      }
+      input_map {
+        key: "sampling_parameters"
+        value: "original_sampling_parameters"
+      }
+      input_map {
+        key: "exclude_input_in_output"
+        value: "original_exclude_input_in_output"
+      }
+      output_map {
+        key: "text_output"
+        value: "text_output"
+      }
+    }
+  ]
+}
+
+version_policy: { latest: { num_versions: 1}}

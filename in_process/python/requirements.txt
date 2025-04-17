@@ -1,0 +1,9 @@
+pydantic
+pydantic-settings
+fastapi[standard]
+tritonclient[all]
+jsonpickle
+orjson
+python-json-logger
+peft
+vllm

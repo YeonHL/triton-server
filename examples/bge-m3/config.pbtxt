@@ -1,0 +1,57 @@
+platform: "ensemble"
+max_batch_size: 32
+
+input [
+  {
+    name: "text_input"
+    data_type: TYPE_STRING
+    dims: [ -1 ]
+  }
+]
+
+output [
+  {
+    name: "sentence_embedding"
+    data_type: TYPE_FP32
+    dims: [ 1024 ]
+  }
+]
+
+ensemble_scheduling {
+  step [
+    {
+      model_name: "bge-m3-preprocess"
+      model_version: -1
+      input_map {
+        key: "text_input"
+        value: "text_input"
+      }
+      output_map {
+        key: "input_ids"
+        value: "input_ids"
+      }
+      output_map {
+        key: "attention_mask"
+        value: "attention_mask"
+      }
+    },
+    {
+      model_name: "bge-m3-model"
+      model_version: -1
+      input_map {
+        key: "input_ids"
+        value: "input_ids"
+      }
+      input_map {
+        key: "attention_mask"
+        value: "attention_mask"
+      }
+      output_map {
+        key: "sentence_embedding"
+        value: "sentence_embedding"
+      }
+    }
+  ]
+}
+
+version_policy: { latest: { num_versions: 1}}

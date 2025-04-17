@@ -1,0 +1,11 @@
+{
+  "model": "nvidia/llama-3.1-8B-Instruct-FP8",
+  "task": "generate",
+  "max_model_len": 8192,
+  "pipeline_parallel_size": 1,
+  "tensor_parallel_size": 1,
+  "gpu_memory_utilization": 0.74,
+  "max_num_seqs": 8,
+  "quantization": "modelopt",
+  "disable_log_requests": "false"
+}

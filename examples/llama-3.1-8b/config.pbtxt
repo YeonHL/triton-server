@@ -1,0 +1,255 @@
+platform: "ensemble"
+max_batch_size: 8
+
+input [
+  {
+    name: "text_input"
+    data_type: TYPE_STRING
+    dims: [ 1 ]
+  },
+  {
+    name: "image"
+    data_type: TYPE_STRING
+    dims: [ 1 ]
+    optional: true
+  },
+  {
+    name: "stream"
+    data_type: TYPE_BOOL
+    dims: [ 1 ]
+  },
+  {
+    name: "sampling_parameters"
+    data_type: TYPE_STRING
+    dims: [ 1 ]
+    optional: true
+  },
+  {
+    name: "exclude_input_in_output"
+    data_type: TYPE_BOOL
+    dims: [ 1 ]
+    optional: true
+  },
+  {
+    name: "return_finish_reason"
+    data_type: TYPE_BOOL
+    dims: [ 1 ]
+    optional: true
+  },
+  {
+    name: "return_cumulative_logprob"
+    data_type: TYPE_BOOL
+    dims: [ 1 ]
+    optional: true
+  },
+  {
+    name: "return_logprobs"
+    data_type: TYPE_BOOL
+    dims: [ 1 ]
+    optional: true
+  },
+  {
+    name: "return_num_input_tokens"
+    data_type: TYPE_BOOL
+    dims: [ 1 ]
+    optional: true
+  },
+  {
+    name: "return_num_output_tokens"
+    data_type: TYPE_BOOL
+    dims: [ 1 ]
+    optional: true
+  }
+]
+
+output [
+  {
+    name: "text_output"
+    data_type: TYPE_STRING
+    dims: [ 1 ]
+  },
+  {
+    name: "finish_reason"
+    data_type: TYPE_STRING
+    dims: [ 1 ]
+  },
+  {
+    name: "cumulative_logprob"
+    data_type: TYPE_FP32
+    dims: [ 1 ]
+  },
+  {
+    name: "logprobs"
+    data_type: TYPE_STRING
+    dims: [ 1 ]
+  },
+  {
+    name: "num_input_tokens"
+    data_type: TYPE_UINT32
+    dims: [ 1 ]
+  },
+  {
+    name: "num_output_tokens"
+    data_type: TYPE_UINT32
+    dims: [ 1 ]
+  }
+]
+
+ensemble_scheduling {
+  step [
+    {
+      model_name: "llama-3.1-8b-preprocess"
+      model_version: -1
+      input_map {
+        key: "text_input"
+        value: "text_input"
+      }
+      input_map {
+        key: "image"
+        value: "image"
+      }
+      input_map {
+        key: "stream"
+        value: "stream"
+      }
+      input_map {
+        key: "sampling_parameters"
+        value: "sampling_parameters"
+      }
+      input_map {
+        key: "exclude_input_in_output"
+        value: "exclude_input_in_output"
+      }
+      input_map {
+        key: "return_finish_reason"
+        value: "return_finish_reason"
+      }
+      input_map {
+        key: "return_cumulative_logprob"
+        value: "return_cumulative_logprob"
+      }
+      input_map {
+        key: "return_logprobs"
+        value: "return_logprobs"
+      }
+      input_map {
+        key: "return_num_input_tokens"
+        value: "return_num_input_tokens"
+      }
+      input_map {
+        key: "return_num_output_tokens"
+        value: "return_num_output_tokens"
+      }
+      output_map {
+        key: "text_preprocessed"
+        value: "text_preprocessed"
+      }
+      output_map {
+        key: "image_preprocessed"
+        value: "image_preprocessed"
+      }
+      output_map {
+        key: "stream_preprocessed"
+        value: "stream_preprocessed"
+      }
+      output_map {
+        key: "sampling_parameters_preprocessed"
+        value: "sampling_parameters_preprocessed"
+      }
+      output_map {
+        key: "exclude_input_in_output_preprocessed"
+        value: "exclude_input_in_output_preprocessed"
+      }
+      output_map {
+        key: "return_finish_reason_preprocessed"
+        value: "return_finish_reason_preprocessed"
+      }
+      output_map {
+        key: "return_cumulative_logprob_preprocessed"
+        value: "return_cumulative_logprob_preprocessed"
+      }
+      output_map {
+        key: "return_logprobs_preprocessed"
+        value: "return_logprobs_preprocessed"
+      }
+      output_map {
+        key: "return_num_input_tokens_preprocessed"
+        value: "return_num_input_tokens_preprocessed"
+      }
+      output_map {
+        key: "return_num_output_tokens_preprocessed"
+        value: "return_num_output_tokens_preprocessed"
+      }
+    },
+    {
+      model_name: "llama-3.1-8b-model"
+      model_version: -1
+      input_map {
+        key: "text_input"
+        value: "text_preprocessed"
+      }
+      input_map {
+        key: "image"
+        value: "image_preprocessed"
+      }
+      input_map {
+        key: "stream"
+        value: "stream_preprocessed"
+      }
+      input_map {
+        key: "sampling_parameters"
+        value: "sampling_parameters_preprocessed"
+      }
+      input_map {
+        key: "exclude_input_in_output"
+        value: "exclude_input_in_output_preprocessed"
+      }
+      input_map {
+        key: "return_finish_reason"
+        value: "return_finish_reason_preprocessed"
+      }
+      input_map {
+        key: "return_cumulative_logprob"
+        value: "return_cumulative_logprob_preprocessed"
+      }
+      input_map {
+        key: "return_logprobs"
+        value: "return_logprobs_preprocessed"
+      }
+      input_map {
+        key: "return_num_input_tokens"
+        value: "return_num_input_tokens_preprocessed"
+      }
+      input_map {
+        key: "return_num_output_tokens"
+        value: "return_num_output_tokens_preprocessed"
+      }
+      output_map {
+        key: "text_output"
+        value: "text_output"
+      }
+      output_map {
+        key: "finish_reason"
+        value: "finish_reason"
+      }
+      output_map {
+        key: "cumulative_logprob"
+        value: "cumulative_logprob"
+      }
+      output_map {
+        key: "logprobs"
+        value: "logprobs"
+      }
+      output_map {
+        key: "num_input_tokens"
+        value: "num_input_tokens"
+      }
+      output_map {
+        key: "num_output_tokens"
+        value: "num_output_tokens"
+      }
+    }
+  ]
+}
+
+version_policy: { latest: { num_versions: 1}}

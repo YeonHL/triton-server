@@ -1,0 +1,50 @@
+name: "bge-m3"
+backend: "python"
+max_batch_size: 32
+
+input [
+  {
+    name: "input_text"
+    data_type: TYPE_STRING
+    dims: [ -1 ]
+  }
+]
+
+output [
+  {
+    name: "sentence_embedding"
+    data_type: TYPE_FP32
+    dims: [ 1024 ]
+  }
+]
+
+
+instance_group [
+  {
+    count: 1
+    kind: KIND_GPU
+    gpus: [ 0 ]
+  }
+]
+
+parameters [
+  {
+      key: "MODEL_REPO",
+      value: { string_value: "BAAI/bge-m3" }
+  },
+  {
+      key: "KOR_MODEL_REPO",
+      value: { string_value: "upskyy/bge-m3-korean" }
+  },
+  {
+      key: "MAX_NEW_TOKENS",
+      value: { string_value: "8192" }
+  }
+]
+
+dynamic_batching {
+  preferred_batch_size: [ 1, 4, 8, 16, 32]
+  max_queue_delay_microseconds: 100
+}
+
+version_policy: { latest: { num_versions: 1}}

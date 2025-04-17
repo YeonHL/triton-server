@@ -1,0 +1,25 @@
+[tool.poetry]
+name = "triton_server"
+version = "0.1.0"
+description = "Nvidia Triton Inference Server"
+authors = ["YeonHL <yeonholee.dev@gmail.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = ">=3.11,<3.12"
+pandas = "^2.2.2"
+torch = "^2.5.1"
+transformers = "^4.47.1"
+accelerate = "^1.2.1"
+peft = "^0.14.0"
+pillow = "^11.1.0"
+opencv-python = "^4.11.0.86"
+
+[tool.poetry.group.dev.dependencies]
+ruff = "^0.5.0"
+pyright = "^1.1.370"
+pre-commit = "^3.7.1"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

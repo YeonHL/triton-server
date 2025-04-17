@@ -1,0 +1,33 @@
+name: triton-server
+
+services:
+  dev:
+    build:
+      dockerfile: ./ContainerFile
+    image: triton-server:latest
+    container_name: triton-server
+    volumes:
+      - /your/triton/model/repository:/models:rw
+      - ${HOME}/.cache/huggingface/:/home/triton-server/.cache/huggingface/hub:rw
+    environment:
+      HF_TOKEN: "your_token"
+    networks:
+      - triton-network
+    ports:
+      - 8000:8000
+      - 8001:8001
+      - 8002:8002
+      - 8888:8888
+    tty: true
+    stdin_open: true
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [gpu]
+
+networks:
+  triton-network:
+    driver: bridge
