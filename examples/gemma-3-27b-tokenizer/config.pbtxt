@@ -1,0 +1,39 @@
+backend: "python"
+max_batch_size: 8
+
+input [
+  {
+    name: "text_input"
+    data_type: TYPE_STRING
+    dims: [ 1 ]
+  }
+]
+
+output [
+  {
+    name: "input_ids"
+    data_type: TYPE_INT64
+    dims: [ -1 ]
+  }
+]
+
+instance_group [
+  {
+    count: 1
+    kind: KIND_CPU
+  }
+]
+
+parameters [
+  {
+      key: "MODEL_REPO",
+      value: { string_value: "google/gemma-3-27b-it" }
+  }
+]
+
+dynamic_batching {
+  preferred_batch_size: [ 1, 2, 4, 8]
+  max_queue_delay_microseconds: 100
+}
+
+version_policy: { latest: { num_versions: 1}}
