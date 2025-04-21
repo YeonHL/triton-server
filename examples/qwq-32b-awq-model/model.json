@@ -1,0 +1,11 @@
+{
+  "model": "Qwen/QwQ-32B-AWQ",
+  "task": "generate",
+  "max_model_len": 8192,
+  "pipeline_parallel_size": 1,
+  "tensor_parallel_size": 1,
+  "gpu_memory_utilization": 0.9,
+  "max_num_seqs": 8,
+  "quantization": "awq",
+  "disable_log_requests": "true"
+}
