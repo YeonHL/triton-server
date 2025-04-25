@@ -35,7 +35,7 @@ parameters [
       value: { string_value: "BAAI/bge-m3" }
   },
   {
-      key: "MAX_NEW_TOKENS",
+      key: "MAX_TOKENS",
       value: { string_value: "8192" }
   }
 ]

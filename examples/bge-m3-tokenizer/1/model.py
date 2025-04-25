@@ -43,8 +43,8 @@ class TritonPythonModel:
             # Initialize
             login(token=hugging_face_token)
 
-            self.max_new_tokens: int = int(
-                parameters.get("MAX_NEW_TOKENS", {}).get("string_value", 8192)
+            self.max_tokens: int = int(
+                parameters.get("MAX_TOKENS", {}).get("string_value", 8192)
             )
 
             model_repo: str = parameters.get("MODEL_REPO", {}).get("string_value", "")
@@ -88,20 +88,21 @@ class TritonPythonModel:
                 # dtype에 따른 처리
                 text_input = []
                 for text in input_tensor:
-                    if isinstance(text, bytes):
+                    if isinstance(text[0], bytes):
                         # bytes를 문자열로 디코딩
-                        text_input.append(text.decode("utf-8"))
-                    elif isinstance(text, str):
-                        text_input.append(text)
-                    else:
-                        text_input.append(str(text))
+                        text_input.append(text[0].decode("utf-8"))
+                    elif isinstance(text[0], str):
+                        text_input.append(text[0])
+                    else: 
+                        text_input.append(str(text[0]))
 
+                self.logger.log_info(f"Input Text: {text_input}")
                 self.logger.log_info(f"Tokenizing {len(text_input)} texts")
                 tokenized_inputs: dict[str, "np.ndarray"] = self.tokenizer(
                     text_input,
                     padding=True,
                     truncation=True,
-                    max_length=self.max_new_tokens,
+                    max_length=self.max_tokens,
                     return_tensors="np",
                 )  # type: ignore (initialize가 선행 실행됨을 가정합니다.)
 
