@@ -15,7 +15,7 @@ optimization { execution_accelerators {
     name : "tensorrt"
     parameters { key: "max_workspace_size_bytes" value: "4294967296" }
     parameters { key: "trt_engine_cache_enable" value: "1" }
-  ]
+  } ]
 }}
 
 parameters [
